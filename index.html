@@ -5,7 +5,44 @@
     <img src="https://avatars0.githubusercontent.com/u/40181002?s=460&v=4" /><br /><br />
     <h2>Coin Map</h2>
     <iframe src="https://coin360.com/widget/map.html?utm_source=embed_map" frameborder="0" title="Coin360.com: Cryptocurrency Market State" width="400" height="300"></iframe>
-    <h2>Coin Charts</h2>
+    <h2>Coin Ticker</h2>
+    <!-- TradingView Widget BEGIN -->
+    <div class="tradingview-widget-container">
+      <div class="tradingview-widget-container__widget"></div>
+      <div class="tradingview-widget-copyright"><a href="https://de.tradingview.com" rel="noopener" target="_blank"><span class="blue-text">Kurse</span></a> von TradingView</div>
+      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-tickers.js" async>
+      {
+      "symbols": [
+        {
+          "proName": "FX_IDC:EURUSD",
+          "title": "EUR/USD"
+        },
+        {
+          "proName": "BITSTAMP:BTCUSD",
+          "title": "Bitcoin"
+        },
+        {
+          "proName": "BITSTAMP:ETHUSD",
+          "title": "Ethereum"
+        },
+        {
+          "title": "Binance",
+          "proName": "BINANCE:BNBUSD"
+        },
+        {
+          "title": "Ripple",
+          "proName": "BITSTAMP:XRPUSD"
+        }
+      ],
+      "colorTheme": "light",
+      "isTransparent": false,
+      "showSymbolLogo": true,
+      "locale": "de_DE"
+    }
+      </script>
+    </div>
+    <!-- TradingView Widget END -->
+    <h2>Bitcoin Chart</h2>
     <iframe height="480" width="650" src="https://ssltvc.investing.com/?pair_ID=1035793&height=480&width=650&interval=86400&plotStyle=candles&domain_ID=1&lang_ID=1&timezone_ID=14"></iframe>
     <h2>My bookmarks</h2>
     <table><tr>
