@@ -72,8 +72,35 @@
     <!-- TradingView Widget END -->
     <a href="https://cointop.sh" target="_blank">cointop.sh</a><br />
     <a href="https://cryptopanic.com/" target="_blank">cryptopanic.com</a><br />
-    <h2>Bitcoin Chart</h2>
+    <h2>Charts</h2>
+    <h3>Bitcoin</h3>
     <iframe height="480" width="650" src="https://ssltvc.investing.com/?pair_ID=1035793&height=480&width=650&interval=86400&plotStyle=candles&domain_ID=1&lang_ID=1&timezone_ID=14"></iframe>
+    <h3>Ethereum</h3>
+    <!-- TradingView Widget BEGIN -->
+    <div class="tradingview-widget-container">
+      <div id="tradingview_e0f8f"></div>
+      <div class="tradingview-widget-copyright"><a href="https://de.tradingview.com/symbols/ETHUSD/?exchange=BINANCE" rel="noopener" target="_blank"><span class="blue-text">ETHUSD Chart</span></a> von TradingView</div>
+      <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+      <script type="text/javascript">
+      new TradingView.widget(
+      {
+          "width": 650,
+          "height": 480,
+          "symbol": "BINANCE:ETHUSD",
+          "interval": "D",
+          "timezone": "Etc/UTC",
+          "theme": "dark",
+          "style": "1",
+          "locale": "de_DE",
+          "toolbar_bg": "#f1f3f6",
+          "enable_publishing": false,
+          "allow_symbol_change": true,
+          "container_id": "tradingview_e0f8f"
+      }
+      );
+      </script>
+    </div>
+    <!-- TradingView Widget END -->
     <h2>Fonds Charts</h2>
     <a href="https://my.onvista.de/watchlist/970661" target="_blank">My watchlist</a>
     <h3>iShares MSCI ACWI ETF</h3>
