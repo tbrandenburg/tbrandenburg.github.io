@@ -6,26 +6,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+    }
     #map {
-      height: 100vh;
+      height: 70vh;
+    }
+    #list {
+      padding: 1em;
+      max-height: 30vh;
+      overflow-y: auto;
+      background: #f4f4f4;
+      border-top: 1px solid #ccc;
+    }
+    .entry {
+      margin-bottom: 0.3em;
     }
   </style>
 </head>
 <body>
   <div id="map"></div>
+  <div id="list"><strong>Aurora-Wahrscheinlichkeiten über Schweden:</strong></div>
 
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script>
-    // Karte zentriert auf Schweden
     const map = L.map('map').setView([62.5, 17], 5);
 
-    // OpenStreetMap Tiles
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 8,
       attribution: '© OpenStreetMap'
     }).addTo(map);
 
-    // Hilfsfunktion für Farbe je nach Wahrscheinlichkeit
     function getColor(p) {
       if (p > 50) return '#ff0000';
       if (p > 30) return '#ff8000';
@@ -33,18 +45,23 @@
       return '#00ff00';
     }
 
-    // Aurora-Daten laden
     fetch('https://services.swpc.noaa.gov/json/ovation_aurora_latest.json')
       .then(res => res.json())
       .then(data => {
-        // Auf Schweden eingrenzen (Breite 55–70, Länge 11–25)
+        const listDiv = document.getElementById('list');
+
         const filtered = data.coordinates.filter(pt =>
           pt.latitude >= 55 && pt.latitude <= 70 &&
-          pt.longitude >= 11 && pt.longitude <= 25
+          pt.longitude >= 11 && pt.longitude <= 25 &&
+          pt.probability > 0
         );
 
-        // Punkte auf Karte darstellen
         filtered.forEach(pt => {
+          const lat = pt.latitude.toFixed(2);
+          const lon = pt.longitude.toFixed(2);
+          const prob = pt.probability.toFixed(1);
+
+          // Marker auf Karte
           L.circleMarker([pt.latitude, pt.longitude], {
             radius: 5,
             fillColor: getColor(pt.probability),
@@ -53,15 +70,24 @@
             opacity: 1,
             fillOpacity: 0.7
           })
-          .bindPopup(
-            `Lat: ${pt.latitude.toFixed(2)}<br>` +
-            `Lon: ${pt.longitude.toFixed(2)}<br>` +
-            `Wahrscheinlichkeit: ${pt.probability.toFixed(1)}%`
-          )
+          .bindPopup(`Lat: ${lat}<br>Lon: ${lon}<br>Wahrscheinlichkeit: ${prob}%`)
           .addTo(map);
+
+          // Textausgabe
+          const entry = document.createElement('div');
+          entry.className = 'entry';
+          entry.textContent = `Lat: ${lat}, Lon: ${lon}, Wahrscheinlichkeit: ${prob}%`;
+          listDiv.appendChild(entry);
         });
+
+        if (filtered.length === 0) {
+          listDiv.innerHTML += "<p>Keine aktiven Aurora-Wahrscheinlichkeiten über Schweden.</p>";
+        }
       })
-      .catch(err => console.error("Fehler beim Laden der Daten:", err));
+      .catch(err => {
+        document.getElementById('list').innerHTML += "<p>Fehler beim Laden der Aurora-Daten.</p>";
+        console.error(err);
+      });
   </script>
 </body>
 </html>
